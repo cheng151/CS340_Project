@@ -1,0 +1,85 @@
+<h1>X2Fed Manufacturers</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each manufacturer.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each manufacturer}}
+        <tr>
+            <td>{{this.manufacturerID}}</td>
+            <td>{{this.manufacturerName}}</td>
+            <td>{{this.contactName}}</td>
+            <td>{{this.contactEmail}}</td>
+            <td>{{this.contactPhone}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_manufacturer_form'>
+                <input type='hidden' name='delete_manufacturer_id' value='{{this.manufacturerID}}' />
+                <input type='hidden' name='delete_manufacturer_name' value='{{this.manufacturerName}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Manufacturer</h2>
+<form class='cuForm' id='create_manufacturer_form'>
+    <label for='create_manufacturer_name'>Manufacturer Name: </label>
+    <input type='text' name='create_manufacturer_name' id='create_manufacturer_name' required />
+
+    <label for='create_contact_name'>Contact Name: </label>
+    <input type='text' name='create_contact_name' id='create_contact_name' />
+
+   <label for='create_contact_phone'>Contact Phone Number: </label>
+    <input type='text' name='create_contact_phone' id='create_contact_phone' />
+
+    <label for='create_contact_email'>Contact Email: </label>
+    <input type='number' name='create_contact_email' id='create_contact_email' min='0' />
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Manufacturer</h2>
+<form class='cuForm' id='update_manufacturer_form'>
+    <label for='update_ manufacturer_id'>Manufacturer to Update: </label>
+    <select name='update_ manufacturer_id' id='update_ manufacturer_id' required>
+        <option value='' disabled selected>Select a Manufacturer</option>
+        {{#each manufacturer}}
+        <option value='{{this.id}}' required>
+            {{this.manufacturerID}}
+            -
+            {{this.manufacturerName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_manufacturer_contact_name'>Contact Name: </label>
+    <input type='text' name='update_manufacturer_contact_name' id='update_manufacturer_contact_name' min='0' />
+
+    <label for='update_manufacturer_contact_number'>Contact Phone Number: </label>
+    <input type='text' name='update_manufacturer_contact_number' id='update_manufacturer_contact_number' min='0' />
+
+    <label for='update_manufacturer_contact_email'>Contact Email: </label>
+    <input type='text' name='update_manufacturer_contact_email' id='update_manufacturer_contact_email' min='0' />
+
+    <input type='submit' />
+</form>

@@ -22,7 +22,7 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 // ########## ROUTE HANDLERS
 
 // READ ROUTES
-app.get('/', async function (req, res) {
+app.get('/home', async function (req, res) {
     try {
         res.render('home'); // Render the home.hbs file
     } catch (error) {
@@ -32,18 +32,39 @@ app.get('/', async function (req, res) {
     }
 });
 
-app.get('/Customers', async function (req, res) {
+app.get('/customers', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
         const query1 = `SELECT * FROM Customers`;
-        const query2 = 'SELECT * FROM bsg_planets;';
+
         const [customer] = await db.query(query1);
 
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('Customers', { customer: customer});
+        res.render('customers', { customer: customer});
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }s
+});
+
+
+app.get('/manufacturers', async function (req, res) {
+    try {
+        // Create and execute our queries
+        // In query1, we use a JOIN clause to display the names of the homeworlds
+        const query1 = `SELECT * FROM Manufacturers`;
+        const [manufacturer] = await db.query(query1);
+
+
+        // Render the bsg-people.hbs file, and also send the renderer
+        //  an object that contains our bsg_people and bsg_homeworld information
+        res.render('manufacturers', { manufacturer: manufacturer});
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
