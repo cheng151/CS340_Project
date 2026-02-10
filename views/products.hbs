@@ -1,0 +1,95 @@
+<h1>X2Fed Customers</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each product.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each product}}
+        <tr>
+            <td>{{this.productID}}</td>
+            <td>{{this.manfacturerID}}</td>
+            <td>{{this.productName}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.quantityInStock}}</td>
+            <td>{{this.unitCost}}</td>
+            <td>{{this.resalePrice}}</td>
+
+
+            {{! DELETE form }}
+            <form id='delete_product_form'>
+                <input type='hidden' name='delete_product_id' value='{{this.productID}}' />
+                <input type='hidden' name='delete_product_name' value='{{this.productName}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Customer</h2>
+<form class='cuForm' id='create_product_form'>
+    <label for='create_product_name'>Product Name: </label>
+    <input type='text' name='create_product_name' id='create_product_name' required />
+
+{{! TODO: figure out if user can use an existing list of manufacturers}}
+    <label for='create_product_manufacturer'>Manufacturer: </label>
+    <input type='text' name='create_product_manufacturer' id='create_product_manufacturer' />
+
+   <label for='create_product_description'>Product Description: </label>
+    <input type='text' name='create_product_description' id='create_product_description' />
+
+    <label for='create_quantity'>Enter Quantity in Stock: </label>
+    <input type='int' name='create_quantity' id='create_quantity' min='0' />
+
+    <label for='create_unit_cost'>Enter Unit Cost: </label>
+    <input type='decimal' name='create_unit_cost' id='create_unit_cost' min='0' />
+
+    <input type='submit' />
+</form>
+
+
+{{! UPDATE form }}
+
+{{! Decide if a product needs to be updated? Possibly yes, like DL350 has gen 9 & gen 10}}
+<h2>Update a Product</h2>
+<form class='cuForm' id='update_product_form'>
+    <label for='update_ product_id'>Customer to Update: </label>
+    <select name='update_ product_id' id='update_ product_id' required>
+        <option value='' disabled selected>Select a Customer</option>
+        {{#each product}}
+        <option value='{{this.id}}' required>
+            {{this.productID}}
+            -
+            {{this.productName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_product_contact_name'>Contact Name: </label>
+    <input type='text' name='update_product_contact_name' id='update_product_contact_name' min='0' />
+
+    <label for='update_product_contact_number'>Contact Phone Number: </label>
+    <input type='text' name='update_product_contact_number' id='update_product_contact_number' min='0' />
+
+    <label for='update_product_contact_email'>Contact Email: </label>
+    <input type='text' name='update_product_contact_email' id='update_product_contact_email' min='0' />
+
+    <input type='submit' />
+</form>
