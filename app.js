@@ -22,9 +22,9 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 // ########## ROUTE HANDLERS
 
 // READ ROUTES
-app.get('/home', async function (req, res) {
+app.get('/', async function (req, res) {
     try {
-        res.render('home'); // Render the home.hbs file
+        res.render('home.hbs'); // Render the home.hbs file
     } catch (error) {
         console.error('Error rendering page:', error);
         // Send a generic error message to the browser
@@ -43,7 +43,7 @@ app.get('/customers', async function (req, res) {
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('customers', { customer: customer});
+        res.render('customers.hbs', { customer: customer});
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -54,7 +54,7 @@ app.get('/customers', async function (req, res) {
 });
 
 
-app.get('/manufacturers', async function (req, res) {
+app.get('/manufacturers.hbs', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
