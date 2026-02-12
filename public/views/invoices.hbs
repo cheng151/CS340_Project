@@ -1,0 +1,91 @@
+<h1>X2Fed Customers</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each invoice.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each invoice}}
+        <tr>
+            <td>{{this.invoiceID}}</td>
+            <td>{{this.customerID}}</td>
+            <td>{{this.invoiceStatusID}}</td>
+            <td>{{this.invoiceNumber}}</td>
+            <td>{{this.createdAt}}</td>
+            <td>{{this.paidAt}}</td>
+            <td>{{this.closedAt}}</td>
+            <td>{{this.totalAmount}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_invoice_form'>
+                <input type='hidden' name='delete_invoice_id' value='{{this.invoiceID}}' />
+                <input type='hidden' name='delete_invoice_number' value='{{this.invoiceNumber}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Customer</h2>
+<form class='cuForm' id='create_invoice_form'>
+    <label for='create_invoice'>New Invoice: </label>
+    <input type='int' name='create_invoice' id='create_invoice' required />
+
+
+{{! To be changed to selecting the customer with dropdown menu}}
+    <label for='select_customer_form'>Customer Name: </label>
+    <input type='text' name='select_customer' id='select_customer' />
+
+{{! Maybe create invoiceStatusID? }}
+   <label for='create_invoice_date_form'>Contact Phone Number: </label>
+    <input type='text' name='create_invoice_date' id='create_invoice_date' />
+
+    <label for='create_contact_email'>Contact Email: </label>
+    <input type='number' name='create_contact_email' id='create_contact_email' min='0' />
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Customer</h2>
+<form class='cuForm' id='update_customer_form'>
+    <label for='update_ customer_id'>Customer to Update: </label>
+    <select name='update_ customer_id' id='update_ customer_id' required>
+        <option value='' disabled selected>Select a Customer</option>
+        {{#each customer}}
+        <option value='{{this.id}}' required>
+            {{this.customerID}}
+            -
+            {{this.customerName}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_customer_contact_name'>Contact Name: </label>
+    <input type='text' name='update_customer_contact_name' id='update_customer_contact_name' min='0' />
+
+    <label for='update_customer_contact_number'>Contact Phone Number: </label>
+    <input type='text' name='update_customer_contact_number' id='update_customer_contact_number' min='0' />
+
+    <label for='update_customer_contact_email'>Contact Email: </label>
+    <input type='text' name='update_customer_contact_email' id='update_customer_contact_email' min='0' />
+
+    <input type='submit' />
+</form>
