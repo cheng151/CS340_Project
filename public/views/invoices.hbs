@@ -64,28 +64,30 @@
 </form>
 
 {{! UPDATE form }}
-<h2>Update a Customer</h2>
-<form class='cuForm' id='update_customer_form'>
-    <label for='update_ customer_id'>Customer to Update: </label>
-    <select name='update_ customer_id' id='update_ customer_id' required>
+{{! May not include due to it being a transaction}}
+<h2>Update an Invoice</h2>
+<form class='cuForm' id='update_invoice_form'>
+    <label for='update_ invoice_id'>Invoice to Update: </label>
+    <select name='update_ invoice_id' id='update_ invoice_id' required>
         <option value='' disabled selected>Select a Customer</option>
-        {{#each customer}}
+        {{#each invoice}}
         <option value='{{this.id}}' required>
-            {{this.customerID}}
+            {{this.invoiceID}}
             -
-            {{this.customerName}}
+            {{this.invoiceNumber}}
         </option>
         {{/each}}
     </select>
 
-    <label for='update_customer_contact_name'>Contact Name: </label>
-    <input type='text' name='update_customer_contact_name' id='update_customer_contact_name' min='0' />
+{{! Trigger to update the status of the invoice}}
+    <label for='update_invoice_status'>New Invoice Status: </label>
+    <input type='text' name='update_invoice_status' id='update_invoice_status' min='0' />
 
-    <label for='update_customer_contact_number'>Contact Phone Number: </label>
-    <input type='text' name='update_customer_contact_number' id='update_customer_contact_number' min='0' />
+    <label for='update_paid_at'>Payment Date: </label>
+    <input type='text' name='update_paid_at' id='update_paid_at' min='0' />
 
-    <label for='update_customer_contact_email'>Contact Email: </label>
-    <input type='text' name='update_customer_contact_email' id='update_customer_contact_email' min='0' />
+    <label for='update_closed_date'>Enter closed date: </label>
+    <input type='text' name='update_closed_date' id='update_closed_date' min='0' />
 
     <input type='submit' />
 </form>
