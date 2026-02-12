@@ -1,0 +1,90 @@
+<h1>X2Fed: Track Shipments</h1>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each shipment.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each shipment}}
+        <tr>
+            <td>{{this.shipmentID}}</td>
+            <td>{{this.invoiceID}}</td>
+            <td>{{this.shipmentStatusID}}</td>
+            <td>{{this.trackingNumber}}</td>
+            <td>{{this.shipmentDate}}</td>
+            <td>{{this.deliveredAt}}</td>
+            <td>{{this.shippingMethod}}</td>
+
+
+            {{! DELETE form }}
+            <form id='delete_shipment_form'>
+                <input type='hidden' name='delete_shipment_id' value='{{this.shipmentID}}' />
+                {{! Trigger a shipment status change}}
+
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Shipment</h2>
+<form class='cuForm' id='create_shipment_form'>
+
+    {{! TODO: create drop down for current list of customers to know who to ship to}}
+    <label for='create_shipment_customer'>Enter Customer: </label>
+    <input type='text' name='create_shipment' id='create_shipment' required />
+
+
+   <label for='create_shipment_date'>Shipping Date: </label>
+    <input type='datetime' name='create_shipment_date' id='create_shipment_date' />
+
+    <label for='create_shipping_method'>Enter Shipping Method: </label>
+    <input type='int' name='create_shipping_method' id='create_shipping_method' min='0' />
+
+    {{! Default the delivered date}}
+
+    <input type='submit' />
+</form>
+
+
+{{! UPDATE form }}
+
+
+<h2>Update a Shipment</h2>
+<form class='cuForm' id='update_shipment_form'>
+    <label for='update_ shipment_info'>Update Shipment Status: </label>
+    <select name='update_ shipment_info' id='update_ shipment_info' required>
+        <option value='' disabled selected>Select a Customer</option>
+        {{#each shipment}}
+        <option value='{{this.id}}' required>
+            {{this.shipmentID}}
+            -
+            {{this.trackingNumber}}
+        </option>
+        {{/each}}
+    </select>
+
+{{! Create dropdown to change the shipment status 'Pending', 'Shipped', 'Delivered'}}
+    <label for='update_shipment_statusID'>Contact Name: </label>
+    <input type='text' name='update_shipment_statusID' id='update_shipment_statusID' min='0' />
+
+
+    <input type='submit' />
+</form>
