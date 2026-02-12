@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const PORT = 1171;
+const PORT = 4242;
 
 // Database
 const db = require('./database/db-connector');
@@ -20,6 +20,7 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 
 // ########################################
 // ########## ROUTE HANDLERS
+
 
 // READ ROUTES
 app.get('/', async function (req, res) {
@@ -34,9 +35,10 @@ app.get('/', async function (req, res) {
 
 app.get('/customers', async function (req, res) {
     try {
-        // Create and execute our queries
-        // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT * FROM Customers`;
+        // Displays a list of all the current Customers that X2Fed sells to
+        const query1 = `SELECT customerID, customerName, contactName, contactEmail, contactPhone 
+        FROM Customers
+        ORDER BY customerName`;
 
         const [customer] = await db.query(query1);
 
@@ -80,7 +82,7 @@ app.get('/products', async function (req, res) {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
         const query1 = `SELECT * FROM Products`;
-        const [manufacturer] = await db.query(query1);
+        const [product] = await db.query(query1);
 
 
         // Render the bsg-people.hbs file, and also send the renderer
@@ -88,6 +90,26 @@ app.get('/products', async function (req, res) {
         res.render('products', { product: product});
     } catch (error) {
         console.error('Error executing queries:', error);
+        // Send a generic error message to the browser
+        res.status(500).send(
+            'An error occurred while executing the database queries.'
+        );
+    }
+});
+
+
+// Invoice route
+app.get('/invoices', async function (req, res) {
+    try {
+        // List of Invoices
+        const query1 = `SELECT * FROM Invoices`;
+        const [invoice] = await db.query(query1);
+
+
+        res.render('invoices', { invoice: invoice});
+    } catch (error) {
+        console.error('Error executing queries:', error);
+        
         // Send a generic error message to the browser
         res.status(500).send(
             'An error occurred while executing the database queries.'
