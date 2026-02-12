@@ -1,4 +1,4 @@
-<h1>X2Fed Customers</h1>
+<h1>X2Fed Invoices</h1>
 
 {{! READ table }}
 <table>
@@ -43,22 +43,18 @@
 </table>
 
 {{! CREATE form }}
-<h2>Create a Customer</h2>
+<h2>Create an Invoice</h2>
 <form class='cuForm' id='create_invoice_form'>
     <label for='create_invoice'>New Invoice: </label>
     <input type='int' name='create_invoice' id='create_invoice' required />
 
 
 {{! To be changed to selecting the customer with dropdown menu}}
-    <label for='select_customer_form'>Customer Name: </label>
-    <input type='text' name='select_customer' id='select_customer' />
+    <label for='select_invoice_form'>Invoice Number: </label>
+    <input type='text' name='select_invoice' id='select_invoice' />
 
 {{! Maybe create invoiceStatusID? }}
-   <label for='create_invoice_date_form'>Contact Phone Number: </label>
-    <input type='text' name='create_invoice_date' id='create_invoice_date' />
 
-    <label for='create_contact_email'>Contact Email: </label>
-    <input type='number' name='create_contact_email' id='create_contact_email' min='0' />
 
     <input type='submit' />
 </form>
@@ -69,7 +65,7 @@
 <form class='cuForm' id='update_invoice_form'>
     <label for='update_ invoice_id'>Invoice to Update: </label>
     <select name='update_ invoice_id' id='update_ invoice_id' required>
-        <option value='' disabled selected>Select a Customer</option>
+        <option value='' disabled selected>Select an Invoice</option>
         {{#each invoice}}
         <option value='{{this.id}}' required>
             {{this.invoiceID}}
